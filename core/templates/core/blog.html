@@ -1,0 +1,131 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+
+{% block title %}
+News
+{% endblock %}
+
+{% block content %}
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="breadcrumb-hero">
+        <div class="container">
+          <div class="breadcrumb-hero">
+            <h2>News</h2>
+            <p>Est dolorum ut non facere possimus quibusdam eligendi voluptatem. Quia id aut similique quia voluptas sit quaerat debitis. Rerum omnis ipsam aperiam consequatur laboriosam nemo harum praesentium. </p>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <ol>
+          <li><a href="{% url 'main' %}">Home</a></li>
+          <li>News</li>
+        </ol>
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= Blog Section ======= -->
+
+    <section id="blog" class="blog">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+
+          <div class="col-lg-8 entries">
+            {% if news %}
+            {% for post in news %}
+            <article class="entry">
+
+              <div class="entry-img">
+                <img src="{{ post.image.url }}" alt="" class="img-fluid">
+              </div>
+
+              <h2 class="entry-title">
+                <a href="{{ post.slug }}">{{ post.title }}</a>
+              </h2>
+
+              <div class="entry-meta">
+                <ul>
+                  <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="{{ post.slug }}">{{ post.author }}</a></li>
+                  <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="{{ post.slug }}"><time datetime="2020-01-01">{{ post.date_published }}</time></a></li>
+                </ul>
+              </div>
+
+              <div class="entry-content">
+                <p>
+
+                  {{ post.text|truncatechars:200 }}
+                </p>
+                <div class="read-more">
+                  <a href="{{ post.slug }}">Read More</a>
+                </div>
+              </div>
+
+            </article><!-- End blog entry -->
+            {% endfor %}
+            {% else %}
+            <h1>None</h1>
+            {% endif %}
+
+            <div class="blog-pagination">
+              {% if page_obj.has_other_pages %}
+              <ul class="justify-content-center">
+                {% if page_obj.has_previous %}
+                <li><a href="?page={{ page_obj.previous_page_number }}">&lt;</a></li>
+                {% endif %}
+                {% for page in paginator.page_range %}
+                {% if page_obj.number == page %}
+                <li class="active"><a href="?page={{ page }}">{{ page }}</a></li>
+                {% elif page >= page_obj.number|add:-2 and page <= page_obj.number|add:2 %}
+                <li><a href="?page={{ page }}">{{ page }}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}">&gt;</a></li>
+                {% endif %}
+              </ul>
+              {% endif %}
+            </div>
+
+          </div><!-- End blog entries list -->
+
+          <div class="col-lg-4">
+
+            <div class="sidebar">
+
+              <h3 class="sidebar-title"></h3>
+              <div class="sidebar-item search-form">
+
+              </div><!-- End sidebar search form -->
+
+
+
+              <h3 class="sidebar-title">Recent Posts</h3>
+              <div class="sidebar-item recent-posts">
+                {% for post in recent_posts %}
+                <div class="post-item clearfix">
+                  <img src="{{ post.image.url }}" alt="">
+                  <h4><a href="{{ post.slug }}">{{ post.title }}</a></h4>
+                  <time datetime="{{ post.date_published }}">{{ post.date_published }}</time>
+                </div>
+                {% endfor %}
+              </div><!-- End sidebar recent posts-->
+
+              <!-- End sidebar tags-->
+
+            </div><!-- End sidebar -->
+
+          </div><!-- End blog sidebar -->
+
+        </div>
+
+      </div>
+    </section><!-- End Blog Section -->
+
+  </main><!-- End #main -->
+
+{% endblock %}

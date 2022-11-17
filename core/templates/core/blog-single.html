@@ -1,0 +1,124 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}
+{{ post.slug }}
+{% endblock %}
+
+{% block content %}
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="breadcrumb-hero">
+        <div class="container">
+          <div class="breadcrumb-hero">
+            <h2>News</h2>
+            <p>Est dolorum ut non facere possimus quibusdam eligendi voluptatem. Quia id aut similique quia voluptas sit quaerat debitis. Rerum omnis ipsam aperiam consequatur laboriosam nemo harum praesentium. </p>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <ol>
+          <li><a href="{% url 'main' %}">Home</a></li>
+          <li><a href="{% url 'news' %}">News</a></li>
+          <li>{{ post.title }}</li>
+        </ol>
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= Blog Single Section ======= -->
+    <section id="blog" class="blog">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+
+          <div class="col-lg-12 entries">
+
+            <article class="entry entry-single">
+
+              <div class="entry-img">
+                <img src="{{ post.image.url }}" alt="" class="img-fluid">
+              </div>
+
+              <h2 class="entry-title">
+                {{ post.title }}
+              </h2>
+
+              <div class="entry-meta">
+                <ul>
+                  <li class="d-flex align-items-center"><i class="bi bi-person"></i>{{ post.author }}</li>
+                  <li class="d-flex align-items-center"><i class="bi bi-clock"></i>{{ post.date_published }}</li>
+                  <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-single.html">{{ comments|length }} Comments</a></li>
+                </ul>
+              </div>
+
+              <div class="entry-content">
+                <p>
+                  {{ post.text }}
+                </p>
+              </div>
+
+              <div class="entry-footer">
+                <i class="bi bi-folder"></i>
+                <ul class="cats">
+                  <li><a href="#">{{ post.subtitle }}</a></li>
+                </ul>
+
+              </div>
+
+            </article><!-- End blog entry -->
+
+
+
+            <div class="blog-comments">
+
+              <h4 class="comments-count">{{ comments|length }} Comments</h4>
+              {% for comment in comments %}
+              {% if not comment.recomment %}
+              <div id="comment-2" class="comment">
+                <div class="d-flex">
+
+                  <div>
+                    <h5><a href="">{{ comment.author }}</a> <a href="#" class="reply"><i class="bi bi-reply-fill"></i> Reply</a></h5>
+                    <time datetime="{{ comment.date_published }}">{{ comment.date_published }}</time>
+                    <p>
+                      {{ comment.text }}
+                    </p>
+                  </div>
+                </div>
+              {% endif %}
+              {% endfor %}
+                {% if user.is_authenticated %}
+
+              {% endif %}
+              <div class="reply-form">
+                <h4>Leave a Reply</h4>
+                <p>Your email address will not be published.</p>
+                <form action="" method="post">
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="col form-group">
+                     <input name="post" value="{{ post.id }}" hidden>
+                      <input name="form" value="comment" hidden>
+                      <input name="author" value="{{ user.id }}" hidden>
+                      {{ comment_form.text }}
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Post Comment</button>
+
+                </form>
+
+              </div>
+
+            </div><!-- End blog comments -->
+
+          </div><!-- End blog entries list -->
+
+        </div>
+
+      </div>
+    </section><!-- End Blog Single Section -->
+
+  </main><!-- End #main -->
+{% endblock %}
