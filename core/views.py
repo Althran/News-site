@@ -1,5 +1,4 @@
 from django.http import HttpRequest
-from django.utils.translation import gettext as _
 from django.views.generic import ListView, DetailView, TemplateView
 
 from .forms import ContactForm, CommentForm, NewsletterForm
@@ -13,7 +12,6 @@ class ContextMixin:
         'site_title': 'Sunny',
         'facebook': 'https://facebook.com',
         'twitter': 'https://twitter.com',
-        'github': 'https://github.com',
         'linkedin': 'https://linkedin.com',
         'instagram': 'https://instagram.com',
     }
@@ -24,18 +22,12 @@ class PostListView(ContextMixin, ListView):
     template_name = 'core/index.html'
     context_object_name = 'posts'
 
-    def get_queryset(self):
-        return Post.objects.filter(is_published=True).order_by('date_published')
-
-    def get_context_data(self, *, object_list=None, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data()
         context.update(self.context)
         context['user'] = self.request.user
         context['newsletter_form'] = NewsletterForm()
         return context
-
-    def get(self, request, *args, **kwargs):
-        return super(PostListView, self).get(request=request)
 
     def post(self, request, post_slug):
         if request.POST.get('form') == 'newsletter':
@@ -106,12 +98,6 @@ class AboutTemplateView(ContextMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(AboutTemplateView, self).get_context_data()
         context.update(self.context)
-        context.update(
-            {
-                'about_title': _('Sunny'),
-                'about_subtitle': _('Subtitle sunny'),
-            }
-        )
         context['user'] = self.request.user
         context['newsletter_form'] = NewsletterForm()
         return context

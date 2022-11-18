@@ -47,8 +47,8 @@ class Post(models.Model):
 
     class Meta:
         db_table = 'blog_posts'
-        verbose_name = 'пост'
-        verbose_name_plural = 'посты'
+        verbose_name = 'post'
+        verbose_name_plural = 'posts'
         ordering = ('date_published', )
 
 
@@ -66,19 +66,19 @@ class Comment(models.Model):
 class Contact(models.Model):
     name = models.CharField(
         max_length=24,
-        verbose_name='имя'
+        verbose_name='name'
     )
     email = models.CharField(
         max_length=24,
-        verbose_name='почта'
+        verbose_name='email'
     )
     message = models.CharField(
         max_length=512,
-        verbose_name='текст сообщения'
+        verbose_name='text message'
     )
     date_created = models.DateTimeField(
         default=now(),
-        verbose_name='дата обращения'
+        verbose_name='date created'
     )
 
     def __str__(self):
@@ -86,8 +86,8 @@ class Contact(models.Model):
 
     class Meta:
         db_table = 'blog_contacts'
-        verbose_name = 'обращение'
-        verbose_name_plural = 'обращения'
+        verbose_name = 'contact'
+        verbose_name_plural = 'contacts'
         ordering = ('date_created', )
 
 

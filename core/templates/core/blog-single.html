@@ -49,7 +49,7 @@
                 <ul>
                   <li class="d-flex align-items-center"><i class="bi bi-person"></i>{{ post.author }}</li>
                   <li class="d-flex align-items-center"><i class="bi bi-clock"></i>{{ post.date_published }}</li>
-                  <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-single.html">{{ comments|length }} Comments</a></li>
+                  <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a>{{ comments|length }} Comments</a></li>
                 </ul>
               </div>
 
@@ -80,11 +80,10 @@
                 <div class="d-flex">
 
                   <div>
-                    <h5><a href="">{{ comment.author }}</a> <a href="#" class="reply"><i class="bi bi-reply-fill"></i> Reply</a></h5>
+                    <h5><a href="">{{ comment.author }}</a></h5>
                     <time datetime="{{ comment.date_published }}">{{ comment.date_published }}</time>
                     <p>
                       {{ comment.text }}
-                    </p>
                   </div>
                 </div>
               {% endif %}
@@ -93,7 +92,7 @@
 
               {% endif %}
               <div class="reply-form">
-                <h4>Leave a Reply</h4>
+                <h4>Leave a Comment</h4>
                 <p>Your email address will not be published.</p>
                 <form action="" method="post">
                   {% csrf_token %}
