@@ -125,8 +125,10 @@ class ContactCreateView(ContextMixin, TemplateView):
 
     def post(self, request: HttpRequest):
         form = ContactForm(request.POST)
-        if form.is_valid():
-            form.save()
+        if request.POST.get('form') == 'newsletter':
+            form = NewsletterForm(request.POST)
+            if form.is_valid():
+                form.save()
         return self.get(request=request)
 
     def post_newsletter(self, request, post_slug):

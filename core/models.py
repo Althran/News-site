@@ -26,7 +26,7 @@ class Post(models.Model):
         verbose_name='is published'
     )
     date_published = models.DateTimeField(
-        default=now(),
+        default=now,
         verbose_name='date published'
     )
     author = models.ForeignKey(
@@ -77,7 +77,7 @@ class Contact(models.Model):
         verbose_name='text message'
     )
     date_created = models.DateTimeField(
-        default=now(),
+        default=now,
         verbose_name='date created'
     )
 
