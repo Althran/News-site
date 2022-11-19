@@ -1,7 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 from slugify import slugify
 
-from core.models import Post, Comment
+from core.models import Post, Comment, Contact
 
 
 class PostSerializer(ModelSerializer):
@@ -21,3 +21,9 @@ class CommentSerializer(ModelSerializer):
     class Meta:
         model = Comment
         fields = ['post', 'author', 'text']
+
+
+class ContactSerializer(ModelSerializer):
+    class Meta:
+        model = Contact
+        fields = ['name', 'email']

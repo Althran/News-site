@@ -1,8 +1,8 @@
 from rest_framework.viewsets import ModelViewSet
 
 
-from .serializers import PostSerializer, CommentSerializer
-from core.models import Post, Comment
+from .serializers import PostSerializer, CommentSerializer, ContactSerializer
+from core.models import Post, Comment, Contact
 
 
 class PostViewSet(ModelViewSet):
@@ -13,3 +13,8 @@ class PostViewSet(ModelViewSet):
 class CommentList(ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+
+
+class ContactList(ModelViewSet):
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer
