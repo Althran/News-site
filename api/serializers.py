@@ -7,7 +7,7 @@ from core.models import Post, Comment, Contact
 class PostSerializer(ModelSerializer):
 
     def create(self, validated_data):
-        validated_data.update({'slug': slugify(validated_data.get('title') + validated_data.get('subtitle')) + ' ' + str(validated_data.get('id'))})
+        validated_data.update({'slug': slugify(validated_data.get('title') + validated_data.get('subtitle')) + '-' + str(validated_data.get('id'))})
         post = Post(**validated_data)
         post.save()
         return post
