@@ -36,7 +36,7 @@ News
         <div class="row">
 
           <div class="col-lg-8 entries">
-            {% if news %}
+
             {% for post in news %}
             <article class="entry">
 
@@ -66,10 +66,12 @@ News
               </div>
 
             </article><!-- End blog entry -->
-            {% endfor %}
-            {% else %}
+            {% empty %}
             <h1>None</h1>
-            {% endif %}
+            {% endfor %}
+
+
+
 
             <div class="blog-pagination">
               {% if page_obj.has_other_pages %}
